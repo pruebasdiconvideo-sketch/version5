@@ -1,0 +1,15 @@
+.redes a,
+li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.redes a:hover,
+li a:hover {
+  color: var(--crema);
+}
+
+li {
+  margin-bottom: 0.25rem;
+}

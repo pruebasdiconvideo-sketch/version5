@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-xl navbar-dark bg-cafe sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2 fs-3" routerLink="/" (click)="cerrarMenu()">
+      <img src="images/logo.png" alt="Logo Café Andino" height="36" width="36">
+      <span>Café <em>Andino</em></span>
+    </a>
+            <button class="navbar-toggler" type="button" [attr.aria-label]="menuAbierto ? 'Cerrar menú' : 'Abrir menú'"
+              aria-controls="menu-principal"
+          [attr.aria-expanded]="menuAbierto" (click)="menuAbierto = !menuAbierto">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="menu-principal" class="collapse navbar-collapse" [ngClass]="{ show: menuAbierto }">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item" *ngFor="let enlace of enlaces()">
+          <a class="nav-link" [routerLink]="enlace.ruta" routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: enlace.ruta === '/' }" (click)="cerrarMenu()">
+            {{ enlace.texto }}
+          </a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center flex-wrap gap-2 mt-3 mt-xl-0 pb-2 pb-xl-0 navbar-actions">
+        <a *ngIf="!auth.esAdmin()" class="btn btn-outline-light btn-sm" routerLink="/tienda" aria-label="Carrito" (click)="cerrarMenu()">
+          <i class="bi bi-cart3"></i>
+          <span class="badge bg-warning text-dark ms-1" *ngIf="carrito.cantidad() > 0">{{ carrito.cantidad() }}</span>
+        </a>
+
+        <ng-container *ngIf="auth.sesion() as s; else invitado">
+          <span class="text-white small">
+            {{ s.nombre }}
+            <span class="badge ms-1" [ngClass]="auth.esAdmin() ? 'bg-danger' : 'bg-light text-dark'">
+              {{ auth.esAdmin() ? 'Administrador' : 'Cliente' }}
+            </span>
+          </span>
+          <a class="btn btn-light btn-sm" routerLink="/dashboard" (click)="cerrarMenu()">
+            {{ auth.esAdmin() ? 'Panel admin' : 'Mi panel' }}
+          </a>
+          <button class="btn btn-outline-light btn-sm" (click)="cerrarSesion()">Cerrar sesión</button>
+        </ng-container>
+        <ng-template #invitado>
+          <a class="btn btn-outline-light btn-sm" routerLink="/registro" (click)="cerrarMenu()">Crear cuenta</a>
+          <a class="btn btn-light btn-sm" routerLink="/login" (click)="cerrarMenu()">Iniciar sesión</a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</nav>

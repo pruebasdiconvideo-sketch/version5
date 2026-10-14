@@ -1,0 +1,37 @@
+<div class="card h-100 shadow-sm position-relative overflow-hidden">
+  <div class="ratio ratio-4x3 overflow-hidden">
+    <img [src]="producto.imagen" [alt]="producto.nombre" class="zoom" loading="lazy" width="1000" height="750"
+         (error)="imagenRota($event)">
+  </div>
+  <span class="badge bg-danger position-absolute top-0 end-0 m-2" *ngIf="producto.descuento">
+    -{{ producto.descuento }}%
+  </span>
+
+  <div class="card-body d-flex flex-column">
+    <span class="badge bg-secondary align-self-start mb-2">{{ producto.categoria | uppercase }}</span>
+    <h5 class="card-title">{{ producto.nombre }}</h5>
+    <p class="card-text small text-muted">{{ producto.descripcion }}</p>
+
+    <p class="mb-2">
+      <del class="text-muted small me-2" *ngIf="producto.descuento">
+        {{ producto.precio | currency: 'PEN' : 'S/ ' }}
+      </del>
+      <strong class="fs-5" [ngClass]="{ 'text-danger': producto.descuento, 'text-cafe': !producto.descuento }">
+        {{ precio | currency: 'PEN' : 'S/ ' }}
+      </strong>
+    </p>
+
+    <div class="progress mb-1">
+      <div class="progress-bar" [ngClass]="claseStock" [ngStyle]="{ width: porcentajeStock + '%' }"></div>
+    </div>
+    <small class="mb-3" [ngClass]="{ 'text-danger fw-semibold': producto.stock < 5 }">
+      {{ producto.stock > 0 ? 'Stock: ' + producto.stock + ' unidades' : 'Agotado' }}
+    </small>
+
+    <button *ngIf="mostrarBoton" class="btn mt-auto" [ngClass]="agregado ? 'btn-success' : 'btn-cafe'"
+            [disabled]="producto.stock === 0" (click)="alAgregar()">
+      <i class="bi" [ngClass]="agregado ? 'bi-check2' : 'bi-cart-plus'"></i>
+      {{ agregado ? 'Agregado' : 'Agregar' }}
+    </button>
+  </div>
+</div>

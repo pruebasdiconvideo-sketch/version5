@@ -1,0 +1,16 @@
+<div class="skills-heading d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-2 mb-4">
+  <div>
+    <p class="text-uppercase small fw-semibold text-cafe mb-2">Nuestro oficio</p>
+    <h2 class="titulo-seccion mb-0">Especialidades de la casa</h2>
+  </div>
+  <p class="text-muted mb-0">Del origen del grano a la última taza.</p>
+</div>
+<div class="row g-3">
+  <div class="col-12 col-md-4" *ngFor="let especialidad of especialidades">
+    <article class="skill-item h-100 p-4">
+      <i class="bi fs-3 text-cafe" [class]="especialidad.icono" aria-hidden="true"></i>
+      <h3 class="h5 mt-3">{{ especialidad.titulo }}</h3>
+      <p class="text-muted mb-0">{{ especialidad.texto }}</p>
+    </article>
+  </div>
+</div>

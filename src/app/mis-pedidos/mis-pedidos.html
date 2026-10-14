@@ -1,0 +1,57 @@
+<h2 class="titulo-seccion mb-4">Mis pedidos</h2>
+
+<div class="row g-3 mb-4">
+  <div class="col-12 col-md-4">
+    <div class="card shadow-sm text-center p-3"><div class="fs-3 fw-bold text-cafe">{{ pedidos.length }}</div><small class="text-muted">Pedidos realizados</small></div>
+  </div>
+  <div class="col-6 col-md-4">
+    <div class="card shadow-sm text-center p-3"><div class="fs-3 fw-bold text-cafe">{{ enCurso }}</div><small class="text-muted">En curso</small></div>
+  </div>
+  <div class="col-6 col-md-4">
+    <div class="card shadow-sm text-center p-3"><div class="fs-3 fw-bold text-cafe">{{ totalGastado | currency: 'PEN' : 'S/ ' }}</div><small class="text-muted">Total comprado</small></div>
+  </div>
+</div>
+
+<div class="text-center py-5" *ngIf="cargando"><div class="spinner-border text-cafe"></div></div>
+
+<div class="card shadow-sm p-5 text-center" *ngIf="!cargando && pedidos.length === 0">
+  <h5>Aún no has realizado pedidos</h5>
+  <p class="text-muted">Cuando compres en la tienda, tus pedidos aparecerán aquí.</p>
+  <a routerLink="/tienda" class="btn btn-cafe align-self-center">Ir a la tienda</a>
+</div>
+
+<ng-container *ngIf="pedidos.length > 0">
+  <div class="mb-3 col-12 col-md-4 px-0">
+    <select class="form-select" [(ngModel)]="filtro" aria-label="Filtrar por estado">
+      <option value="">Todos los estados</option>
+      <option *ngFor="let e of estados" [value]="e">{{ etiqueta[e] }}</option>
+    </select>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table align-middle tabla-cards">
+      <thead class="table-light">
+        <tr><th>N°</th><th>Fecha</th><th>Productos</th><th class="text-end">Total</th><th>Estado</th><th></th></tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let p of visibles">
+          <tr>
+            <td data-label="N°">#{{ p.id }}</td>
+            <td data-label="Fecha">{{ p.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td data-label="Productos">{{ p.items.length }} {{ p.items.length === 1 ? 'producto' : 'productos' }}</td>
+            <td data-label="Total" class="text-end">{{ p.total | currency: 'PEN' : 'S/ ' }}</td>
+            <td data-label="Estado"><span class="badge" [ngClass]="clase[p.estado]">{{ etiqueta[p.estado] }}</span></td>
+            <td data-label="" class="text-end">
+              <button class="btn btn-sm btn-outline-cafe" (click)="alternar(p.id)">
+                {{ abiertos.has(p.id) ? 'Ocultar' : 'Ver detalle' }}
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="abiertos.has(p.id)">
+            <td colspan="6"><app-pedido-detalle [pedido]="p" /></td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</ng-container>

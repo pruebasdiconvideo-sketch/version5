@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist/cafe-andino/browser"
+
+# Rutas renderizadas solo en el navegador (tienda, dashboard, mi-cuenta, 404)
+[[redirects]]
+  from = "/*"
+  to = "/index.csr.html"
+  status = 200

@@ -1,0 +1,12 @@
+<div class="d-flex justify-content-between align-items-end mb-4">
+  <div>
+    <p class="text-uppercase small fw-semibold text-cafe mb-2">Selección Café Andino</p>
+    <h2 class="titulo-seccion mb-0">Lo más pedido</h2>
+  </div>
+  <a routerLink="/productos" class="btn btn-outline-cafe btn-sm">Ver catálogo</a>
+</div>
+<div class="row g-3 g-md-4">
+  <div class="col-12 col-sm-6 col-lg-3" *ngFor="let producto of destacados">
+    <app-producto-card [producto]="producto" />
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.miniatura {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+}
+
+.campo {
+  width: 90px;
+}

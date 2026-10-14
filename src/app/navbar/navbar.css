@@ -1,0 +1,42 @@
+.navbar-brand em {
+  color: var(--crema);
+}
+
+.navbar-nav .nav-link {
+  font-size: .93rem;
+  font-weight: 600;
+}
+
+@media (min-width: 1200px) {
+  .navbar-nav {
+    flex-wrap: nowrap;
+    column-gap: .25rem;
+  }
+
+  .navbar-nav .nav-item,
+  .navbar-actions {
+    flex: 0 0 auto;
+  }
+
+  .navbar-nav .nav-link,
+  .navbar-actions > span {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  #menu-principal {
+    flex-basis: 100%;
+    width: 100%;
+    padding-block: .75rem;
+  }
+
+  .navbar-nav .nav-link {
+    padding-block: .55rem;
+  }
+
+  .navbar-actions {
+    justify-content: flex-start;
+    width: 100%;
+  }
+}

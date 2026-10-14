@@ -1,0 +1,320 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Cappuccino andino",
+      "imagen": "images/product-cappuccino.jpg",
+      "categoria": "cafe",
+      "precio": 12,
+      "stock": 40,
+      "descripcion": "Espresso de Quillabamba con leche espumada."
+    },
+    {
+      "id": 2,
+      "nombre": "Espresso doble",
+      "imagen": "images/product-espresso.jpg",
+      "categoria": "cafe",
+      "precio": 9,
+      "stock": 35,
+      "descripcion": "Grano orgánico tostado en batch pequeño."
+    },
+    {
+      "id": 3,
+      "nombre": "Cold brew de altura",
+      "imagen": "images/product-cold-brew.jpg",
+      "categoria": "cafe",
+      "precio": 14,
+      "stock": 18,
+      "descripcion": "Extracción en frío por 18 horas.",
+      "descuento": 15
+    },
+    {
+      "id": 4,
+      "nombre": "Café filtrado V60",
+      "imagen": "images/product-v60.jpg",
+      "categoria": "cafe",
+      "precio": 13,
+      "stock": 25,
+      "descripcion": "Notas a cacao y frutos rojos."
+    },
+    {
+      "id": 5,
+      "nombre": "Tisana de muña",
+      "imagen": "images/product-tisana-muna.jpg",
+      "categoria": "tisanas",
+      "precio": 8,
+      "stock": 30,
+      "descripcion": "Hierba andina digestiva."
+    },
+    {
+      "id": 6,
+      "nombre": "Tisana de coca",
+      "imagen": "images/product-tisana-coca.jpg",
+      "categoria": "tisanas",
+      "precio": 8,
+      "stock": 22,
+      "descripcion": "Infusión tradicional cusqueña."
+    },
+    {
+      "id": 7,
+      "nombre": "Hierba luisa",
+      "imagen": "images/product-hierba-luisa.jpg",
+      "categoria": "tisanas",
+      "precio": 7,
+      "stock": 3,
+      "descripcion": "Infusión fresca y aromática."
+    },
+    {
+      "id": 8,
+      "nombre": "Tarta de lúcuma",
+      "imagen": "images/product-tarta-lucuma.jpg",
+      "categoria": "postres",
+      "precio": 11,
+      "stock": 12,
+      "descripcion": "Postre peruano con crema suave.",
+      "descuento": 20
+    },
+    {
+      "id": 9,
+      "nombre": "Alfajores de manjar blanco",
+      "imagen": "images/product-alfajores.jpg",
+      "categoria": "postres",
+      "precio": 10,
+      "stock": 28,
+      "descripcion": "Caja de 3 unidades."
+    },
+    {
+      "id": 10,
+      "nombre": "Cheesecake de aguaymanto",
+      "imagen": "images/product-cheesecake-aguaymanto.jpg",
+      "categoria": "postres",
+      "precio": 13,
+      "stock": 8,
+      "descripcion": "Base crocante y coulis de aguaymanto.",
+      "descuento": 10
+    },
+    {
+      "id": 11,
+      "nombre": "Empanada de lomo saltado",
+      "imagen": "images/product-empanada.jpg",
+      "categoria": "salados",
+      "precio": 9,
+      "stock": 20,
+      "descripcion": "Horneada al momento."
+    },
+    {
+      "id": 12,
+      "nombre": "Sándwich andino",
+      "imagen": "images/product-sandwich-andino.jpg",
+      "categoria": "salados",
+      "precio": 15,
+      "stock": 2,
+      "descripcion": "Pan artesanal, queso andino y palta."
+    }
+  ],
+  "usuarios": [
+    {
+      "id": 1,
+      "nombre": "Administrador Café Andino",
+      "email": "admin@cafeandino.pe",
+      "telefono": "984000001",
+      "password": "admin123",
+      "rol": "administrador",
+      "fechaRegistro": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "nombre": "Lucía Quispe",
+      "email": "cliente@cafeandino.pe",
+      "telefono": "984111222",
+      "password": "cliente123",
+      "rol": "cliente",
+      "fechaRegistro": "2026-08-15T14:20:00.000Z"
+    },
+    {
+      "id": 3,
+      "nombre": "Marco Huamán",
+      "email": "marco@correo.com",
+      "telefono": "984333444",
+      "password": "marco123",
+      "rol": "cliente",
+      "fechaRegistro": "2026-09-02T11:05:00.000Z"
+    }
+  ],
+  "pedidos": [
+    {
+      "id": 1,
+      "usuarioId": 2,
+      "clienteNombre": "Lucía Quispe",
+      "clienteEmail": "cliente@cafeandino.pe",
+      "fecha": "2026-09-20T10:15:00.000Z",
+      "items": [
+        {
+          "productoId": 1,
+          "nombre": "Cappuccino andino",
+          "imagen": "images/product-cappuccino.jpg",
+          "precioUnitario": 12.0,
+          "cantidad": 2,
+          "subtotal": 24.0
+        },
+        {
+          "productoId": 9,
+          "nombre": "Alfajores de manjar blanco",
+          "imagen": "images/product-alfajores.jpg",
+          "precioUnitario": 10.0,
+          "cantidad": 1,
+          "subtotal": 10.0
+        }
+      ],
+      "subtotal": 34.0,
+      "igv": 6.12,
+      "total": 40.12,
+      "estado": "entregado"
+    },
+    {
+      "id": 2,
+      "usuarioId": 3,
+      "clienteNombre": "Marco Huamán",
+      "clienteEmail": "marco@correo.com",
+      "fecha": "2026-09-28T16:40:00.000Z",
+      "items": [
+        {
+          "productoId": 3,
+          "nombre": "Cold brew de altura",
+          "imagen": "images/product-cold-brew.jpg",
+          "precioUnitario": 11.9,
+          "cantidad": 1,
+          "subtotal": 11.9
+        },
+        {
+          "productoId": 8,
+          "nombre": "Tarta de lúcuma",
+          "imagen": "images/product-tarta-lucuma.jpg",
+          "precioUnitario": 8.8,
+          "cantidad": 2,
+          "subtotal": 17.6
+        }
+      ],
+      "subtotal": 29.5,
+      "igv": 5.31,
+      "total": 34.81,
+      "estado": "entregado"
+    },
+    {
+      "id": 3,
+      "usuarioId": 2,
+      "clienteNombre": "Lucía Quispe",
+      "clienteEmail": "cliente@cafeandino.pe",
+      "fecha": "2026-10-03T09:05:00.000Z",
+      "items": [
+        {
+          "productoId": 4,
+          "nombre": "Café filtrado V60",
+          "imagen": "images/product-v60.jpg",
+          "precioUnitario": 13.0,
+          "cantidad": 1,
+          "subtotal": 13.0
+        },
+        {
+          "productoId": 10,
+          "nombre": "Cheesecake de aguaymanto",
+          "imagen": "images/product-cheesecake-aguaymanto.jpg",
+          "precioUnitario": 11.7,
+          "cantidad": 1,
+          "subtotal": 11.7
+        },
+        {
+          "productoId": 11,
+          "nombre": "Empanada de lomo saltado",
+          "imagen": "images/product-empanada.jpg",
+          "precioUnitario": 9.0,
+          "cantidad": 2,
+          "subtotal": 18.0
+        }
+      ],
+      "subtotal": 42.7,
+      "igv": 7.69,
+      "total": 50.39,
+      "estado": "preparando"
+    },
+    {
+      "id": 4,
+      "usuarioId": 3,
+      "clienteNombre": "Marco Huamán",
+      "clienteEmail": "marco@correo.com",
+      "fecha": "2026-10-06T18:30:00.000Z",
+      "items": [
+        {
+          "productoId": 2,
+          "nombre": "Espresso doble",
+          "imagen": "images/product-espresso.jpg",
+          "precioUnitario": 9.0,
+          "cantidad": 2,
+          "subtotal": 18.0
+        },
+        {
+          "productoId": 12,
+          "nombre": "Sándwich andino",
+          "imagen": "images/product-sandwich-andino.jpg",
+          "precioUnitario": 15.0,
+          "cantidad": 1,
+          "subtotal": 15.0
+        }
+      ],
+      "subtotal": 33.0,
+      "igv": 5.94,
+      "total": 38.94,
+      "estado": "pendiente"
+    },
+    {
+      "id": 5,
+      "usuarioId": 2,
+      "clienteNombre": "Lucía Quispe",
+      "clienteEmail": "cliente@cafeandino.pe",
+      "fecha": "2026-10-06T19:10:00.000Z",
+      "items": [
+        {
+          "productoId": 5,
+          "nombre": "Tisana de muña",
+          "imagen": "images/product-tisana-muna.jpg",
+          "precioUnitario": 8.0,
+          "cantidad": 2,
+          "subtotal": 16.0
+        },
+        {
+          "productoId": 6,
+          "nombre": "Tisana de coca",
+          "imagen": "images/product-tisana-coca.jpg",
+          "precioUnitario": 8.0,
+          "cantidad": 1,
+          "subtotal": 8.0
+        }
+      ],
+      "subtotal": 24.0,
+      "igv": 4.32,
+      "total": 28.32,
+      "estado": "pendiente"
+    },
+    {
+      "id": 6,
+      "usuarioId": 3,
+      "clienteNombre": "Marco Huamán",
+      "clienteEmail": "marco@correo.com",
+      "fecha": "2026-09-25T12:00:00.000Z",
+      "items": [
+        {
+          "productoId": 7,
+          "nombre": "Hierba luisa",
+          "imagen": "images/product-hierba-luisa.jpg",
+          "precioUnitario": 7.0,
+          "cantidad": 1,
+          "subtotal": 7.0
+        }
+      ],
+      "subtotal": 7.0,
+      "igv": 1.26,
+      "total": 8.26,
+      "estado": "cancelado"
+    }
+  ]
+}

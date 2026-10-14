@@ -1,0 +1,49 @@
+<div class="d-flex flex-wrap gap-2 mb-3">
+  <span class="badge fs-6" *ngFor="let e of estados" [ngClass]="clase[e]">{{ etiqueta[e] }}: {{ contar(e) }}</span>
+</div>
+
+<div class="row g-2 mb-3">
+  <div class="col-12 col-md-7">
+    <input type="search" class="form-control" placeholder="Buscar por cliente, correo o N° de pedido..." [(ngModel)]="busqueda">
+  </div>
+  <div class="col-12 col-md-5">
+    <select class="form-select" [(ngModel)]="filtroEstado" aria-label="Filtrar por estado">
+      <option value="">Todos los estados</option>
+      <option *ngFor="let e of estados" [value]="e">{{ etiqueta[e] }}</option>
+    </select>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table align-middle tabla-cards">
+    <thead class="table-light">
+      <tr><th>N°</th><th>Fecha</th><th>Cliente</th><th>Productos</th><th class="text-end">Total</th><th>Estado</th><th></th></tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let p of visibles">
+        <tr>
+          <td data-label="N°">#{{ p.id }}</td>
+          <td data-label="Fecha">{{ p.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
+          <td data-label="Cliente">{{ p.clienteNombre }}<br><small class="text-muted">{{ p.clienteEmail }}</small></td>
+          <td data-label="Productos">{{ p.items.length }}</td>
+          <td data-label="Total" class="text-end">{{ p.total | currency: 'PEN' : 'S/ ' }}</td>
+          <td data-label="Estado">
+            <select class="form-select form-select-sm estado" [ngModel]="p.estado"
+                    (ngModelChange)="cambiarEstado(p, $event)" [attr.aria-label]="'Estado del pedido ' + p.id">
+              <option *ngFor="let e of estados" [value]="e">{{ etiqueta[e] }}</option>
+            </select>
+          </td>
+          <td data-label="" class="text-end">
+            <button class="btn btn-sm btn-outline-cafe" (click)="alternar(p.id)">
+              {{ abiertos.has(p.id) ? 'Ocultar' : 'Detalle' }}
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="abiertos.has(p.id)">
+          <td colspan="7"><app-pedido-detalle [pedido]="p" [mostrarCliente]="true" /></td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+<p class="text-muted text-center" *ngIf="visibles.length === 0">No hay pedidos que coincidan.</p>

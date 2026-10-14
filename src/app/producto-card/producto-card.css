@@ -1,0 +1,12 @@
+.zoom {
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.card:hover .zoom {
+  transform: scale(1.06);
+}
+
+.progress {
+  height: 6px;
+}

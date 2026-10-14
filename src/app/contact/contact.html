@@ -1,0 +1,44 @@
+<h2 class="titulo-seccion mb-4">Contacto y reservas</h2>
+<div class="row g-4">
+  <div class="col-12 col-md-5">
+    <div class="card shadow-sm p-3 h-100">
+      <h5>Café Andino</h5>
+      <p class="mb-1"><i class="bi bi-geo-alt"></i> Centro Histórico, Cusco</p>
+      <p class="mb-1"><i class="bi bi-clock"></i> Lun a Vie · 7:00 a.m. – 10:00 p.m.</p>
+      <p class="mb-3"><i class="bi bi-whatsapp"></i> +51 999 999 999</p>
+      <a class="btn btn-success" href="https://wa.me/51999999999" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-7">
+    <form #f="ngForm" class="card shadow-sm p-3" (ngSubmit)="enviar(f)" novalidate>
+      <div class="alert alert-success" *ngIf="enviado">¡Gracias, {{ nombreEnviado }}! Te responderemos pronto.</div>
+
+      <div class="mb-3">
+        <label class="form-label" for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" class="form-control" required minlength="3"
+               [(ngModel)]="mensaje.nombre" #nombre="ngModel"
+               [ngClass]="{ 'is-invalid': nombre.invalid && (nombre.touched || f.submitted) }">
+        <div class="invalid-feedback">Ingresa al menos 3 caracteres.</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="email">Correo</label>
+        <input id="email" name="email" type="email" class="form-control" required email
+               [(ngModel)]="mensaje.email" #email="ngModel"
+               [ngClass]="{ 'is-invalid': email.invalid && (email.touched || f.submitted) }">
+        <div class="invalid-feedback">Ingresa un correo válido.</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="texto">Mensaje</label>
+        <textarea id="texto" name="texto" rows="4" class="form-control" required minlength="10"
+                  [(ngModel)]="mensaje.texto" #texto="ngModel"
+                  [ngClass]="{ 'is-invalid': texto.invalid && (texto.touched || f.submitted) }"></textarea>
+        <div class="invalid-feedback">Cuéntanos un poco más (mín. 10 caracteres).</div>
+      </div>
+
+      <button class="btn btn-cafe" type="submit">Enviar</button>
+    </form>
+  </div>
+</div>

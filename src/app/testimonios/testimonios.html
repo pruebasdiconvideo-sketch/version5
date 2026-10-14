@@ -1,0 +1,12 @@
+<h2 class="titulo-seccion mb-4">Lo que dicen nuestros clientes</h2>
+<div class="row g-3 g-md-4">
+  <div class="col-12 col-md-4" *ngFor="let o of opiniones">
+    <figure class="card shadow-sm h-100 p-4 mb-0">
+      <div class="mb-2" [attr.aria-label]="o.puntaje + ' de 5 estrellas'">
+        <i class="bi bi-star-fill" *ngFor="let e of estrellas" [ngClass]="e <= o.puntaje ? 'text-warning' : 'text-muted opacity-25'"></i>
+      </div>
+      <blockquote class="mb-3">“{{ o.texto }}”</blockquote>
+      <figcaption class="mt-auto small"><strong>{{ o.nombre }}</strong> · <span class="text-muted">{{ o.origen }}</span></figcaption>
+    </figure>
+  </div>
+</div>

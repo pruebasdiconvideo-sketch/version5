@@ -1,0 +1,31 @@
+<h2 class="titulo-seccion mb-4">Mi Cuenta</h2>
+
+<ng-container *ngIf="auth.sesion() as s; else sinSesion">
+  <div class="card shadow-sm p-4 perfil">
+    <p class="mb-1"><strong>Nombre:</strong> {{ s.nombre }}</p>
+    <p class="mb-1"><strong>Correo:</strong> {{ s.email | lowercase }}</p>
+    <p class="mb-1" *ngIf="s.telefono"><strong>Teléfono:</strong> {{ s.telefono }}</p>
+    <p class="mb-1">
+      <strong>Tipo de cuenta:</strong>
+      <span class="badge ms-1" [ngClass]="auth.esAdmin() ? 'bg-danger' : 'bg-secondary'">{{ s.rol | titlecase }}</span>
+    </p>
+    <p class="mb-3"><strong>Último ingreso:</strong> {{ s.fechaIngreso | date: 'dd/MM/yyyy HH:mm' }}</p>
+
+    <label class="form-label" for="nombre">Cambiar nombre</label>
+    <div class="input-group mb-3">
+      <input id="nombre" class="form-control" [(ngModel)]="nombre" placeholder="Nuevo nombre">
+      <button class="btn btn-cafe" [disabled]="!nombre.trim()" (click)="guardar()">Guardar</button>
+    </div>
+    <small class="text-success mb-3" *ngIf="guardado">Nombre actualizado.</small>
+
+    <a *ngIf="auth.esCliente()" routerLink="/mis-pedidos" class="btn btn-outline-cafe">Ver mis pedidos</a>
+    <a *ngIf="auth.esAdmin()" routerLink="/dashboard" class="btn btn-outline-cafe">Ir al panel de administración</a>
+  </div>
+</ng-container>
+
+<ng-template #sinSesion>
+  <div class="alert alert-info">
+    Inicia sesión para ver tu cuenta. <a routerLink="/login">Iniciar sesión</a> ·
+    <a routerLink="/registro">Crear cuenta</a>
+  </div>
+</ng-template>

@@ -1,0 +1,63 @@
+<h2 class="titulo-seccion mb-4">Tienda</h2>
+<div class="row g-4">
+  <div class="col-12 col-lg-8">
+    <div class="row g-4">
+      <div class="col-12 col-sm-6 col-xl-4" *ngFor="let p of productos">
+        <app-producto-card [producto]="p" [mostrarBoton]="true" (agregar)="carrito.agregar($event)" />
+      </div>
+    </div>
+  </div>
+
+  <aside #panelPedido class="col-12 col-lg-4">
+    <div class="card shadow-sm pedido">
+      <div class="card-header bg-cafe text-white">Tu pedido ({{ carrito.cantidad() }})</div>
+      <div class="card-body">
+        <div class="alert alert-success" *ngIf="pedidoCreado as p">
+          ¡Pedido #{{ p.id }} registrado! Total {{ p.total | currency: 'PEN' : 'S/ ' }}.
+          <a routerLink="/mis-pedidos" class="alert-link">Ver mis pedidos</a>
+        </div>
+        <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+        <div class="alert alert-warning small" *ngIf="auth.esAdmin()">
+          Las cuentas de administrador no realizan compras. Gestiona los pedidos desde el
+          <a routerLink="/dashboard" class="alert-link">panel admin</a>.
+        </div>
+        <p class="text-muted" *ngIf="carrito.items().length === 0">Aún no agregas productos.</p>
+
+        <div class="table-responsive" *ngIf="carrito.items().length > 0">
+          <table class="table table-sm align-middle">
+            <tbody>
+              <tr *ngFor="let i of carrito.items()">
+                <td>{{ i.producto.nombre }}</td>
+                <td class="text-nowrap">
+                  <button class="btn btn-sm btn-outline-cafe" (click)="carrito.cambiarCantidad(i.producto.id, -1)">−</button>
+                  <span class="mx-2">{{ i.cantidad }}</span>
+                  <button class="btn btn-sm btn-outline-cafe" (click)="carrito.cambiarCantidad(i.producto.id, 1)">+</button>
+                </td>
+                <td class="text-end">{{ precio(i.producto) * i.cantidad | currency: 'PEN' : 'S/ ' }}</td>
+                <td>
+                  <button class="btn btn-sm text-danger" aria-label="Quitar" (click)="carrito.quitar(i.producto.id)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-between small"><span>Subtotal</span><span>{{ carrito.subtotal() | currency: 'PEN' : 'S/ ' }}</span></div>
+          <div class="d-flex justify-content-between small"><span>IGV (18%)</span><span>{{ carrito.igv() | currency: 'PEN' : 'S/ ' }}</span></div>
+          <div class="d-flex justify-content-between fw-bold fs-5"><span>Total</span><span>{{ carrito.total() | currency: 'PEN' : 'S/ ' }}</span></div>
+          <div class="d-grid gap-2 mt-3">
+            <button class="btn btn-cafe" *ngIf="!auth.esAdmin()" [disabled]="procesando" (click)="confirmar()">
+              {{ procesando ? 'Registrando...' : auth.autenticado() ? 'Confirmar pedido' : 'Inicia sesión para pedir' }}
+            </button>
+            <button class="btn btn-outline-secondary btn-sm" (click)="carrito.vaciar()">Vaciar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<button type="button" class="btn btn-cafe btn-lg rounded-pill shadow flotante d-lg-none"
+        *ngIf="carrito.cantidad() > 0" (click)="irAlPedido()">
+  <i class="bi bi-cart3"></i> Ver pedido ({{ carrito.cantidad() }})
+</button>

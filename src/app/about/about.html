@@ -1,0 +1,18 @@
+<div class="row g-4 g-lg-5 align-items-center">
+  <div class="col-12 col-md-5">
+    <img src="images/about.jpg" alt="Granos de café andino" class="img-fluid rounded-4 shadow" loading="lazy" width="1000" height="750">
+  </div>
+  <div class="col-12 col-md-7">
+    <h2 class="titulo-seccion mb-3">Nuestra historia</h2>
+    <p class="text-muted">
+      Desde 2018, Café Andino revaloriza el café peruano de altura en el Centro Histórico del Cusco.
+      Cada taza cuenta la historia de las familias cafetaleras de La Convención y Quillabamba.
+    </p>
+    <ul class="list-unstyled mb-0">
+      <li class="d-flex gap-3 mb-3" *ngFor="let v of valores">
+        <i class="bi fs-3 text-cafe" [class]="v.icono"></i>
+        <div><strong>{{ v.titulo }}</strong><br><small class="text-muted">{{ v.texto }}</small></div>
+      </li>
+    </ul>
+  </div>
+</div>

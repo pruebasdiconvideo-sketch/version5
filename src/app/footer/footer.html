@@ -1,0 +1,49 @@
+<footer class="bg-dark text-light pt-5 pb-3 mt-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-lg-3">
+        <h5 class="fs-4 d-flex align-items-center gap-2">
+          <img src="images/logo.png" alt="" width="34" height="34"> Café <em>Andino</em>
+        </h5>
+        <p class="small text-secondary mb-0">Café orgánico de altura, directo de las familias cafetaleras de La Convención.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Tienda</h6>
+        <ul class="list-unstyled small mb-0">
+          <li><a routerLink="/productos">Productos</a></li>
+          <li><a routerLink="/categorias">Categorías</a></li>
+          <li><a routerLink="/ofertas">Ofertas</a></li>
+          <li><a routerLink="/tienda">Tienda</a></li>
+          <li><a routerLink="/mi-cuenta">Mi cuenta</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Conócenos</h6>
+        <ul class="list-unstyled small mb-0">
+          <li><a routerLink="/about">Nuestra historia</a></li>
+          <li><a routerLink="/testimonios">Opiniones</a></li>
+          <li><a routerLink="/contact">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h6>Visítanos</h6>
+        <p class="small mb-1"><i class="bi bi-geo-alt"></i> Centro Histórico, Cusco, Perú</p>
+        <p class="small mb-1"><i class="bi bi-clock"></i> Lun a Vie · 7:00 a.m. – 10:00 p.m.</p>
+        <a routerLink="/contact" class="small text-warning">Reserva tu mesa</a>
+      </div>
+      <div class="col-6 col-md-6 col-lg-2">
+        <h6>Síguenos</h6>
+        <div class="redes fs-4 d-flex gap-3">
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+          <a href="https://wa.me/51999999999" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr class="border-secondary">
+    <p class="small text-center text-secondary mb-0">
+      © {{ hoy | date: 'yyyy' }} Café Andino · Cusco, Perú · PC2 JavaScript Avanzado
+    </p>
+  </div>
+</footer>

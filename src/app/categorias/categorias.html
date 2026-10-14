@@ -1,0 +1,14 @@
+<h2 class="titulo-seccion mb-4">Explora por categoría</h2>
+<div class="row g-3 g-md-4">
+  <div class="col-6 col-lg-3" *ngFor="let c of categorias">
+    <a class="tile card h-100 text-decoration-none text-white overflow-hidden"
+       routerLink="/productos" [queryParams]="{ categoria: c.id }">
+      <img [src]="c.imagen" [alt]="c.titulo" loading="lazy" width="1000" height="750">
+      <div class="velo"></div>
+      <div class="texto">
+        <h5 class="mb-0">{{ c.titulo }}</h5>
+        <small class="d-none d-sm-block opacity-75">{{ c.texto }}</small>
+      </div>
+    </a>
+  </div>
+</div>

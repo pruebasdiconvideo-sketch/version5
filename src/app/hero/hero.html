@@ -1,0 +1,26 @@
+<section class="hero rounded-4 text-white overflow-hidden" [ngStyle]="fondo">
+  <div class="row align-items-center g-4 g-lg-5 m-0">
+    <div class="col-12 col-lg-6 text-center text-lg-start">
+      <span class="etiqueta">Cusco · Perú</span>
+      <h1 class="titulo mt-3">Café de altura, <em>directo del origen andino</em></h1>
+      <p class="lead opacity-75">
+        Granos orgánicos de La Convención tostados en el local. Pide en línea y haz seguimiento a tus pedidos.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-2 my-4">
+        <a routerLink="/tienda" class="btn btn-light btn-lg">Comprar ahora</a>
+        <a routerLink="/ofertas" class="btn btn-outline-light btn-lg">Ver ofertas</a>
+      </div>
+      <div class="d-flex justify-content-center justify-content-lg-start gap-4">
+        <div *ngFor="let c of cifras">
+          <div class="fs-4 fw-bold">{{ c.valor }}</div>
+          <small class="opacity-75">{{ c.texto }}</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <img src="images/hero-cup.jpg" alt="Espresso servido en taza sobre mesa de madera" class="foto shadow-lg"
+           width="1200" height="800" fetchpriority="high">
+    </div>
+  </div>
+</section>

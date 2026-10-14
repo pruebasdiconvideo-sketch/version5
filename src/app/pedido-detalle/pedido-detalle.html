@@ -1,0 +1,26 @@
+<div class="p-3 bg-light rounded-3">
+  <p class="small mb-2" *ngIf="mostrarCliente">
+    <i class="bi bi-person"></i> <strong>{{ pedido.clienteNombre }}</strong> · {{ pedido.clienteEmail }}
+  </p>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle mb-2">
+      <thead>
+        <tr><th></th><th>Producto</th><th class="text-center">Cant.</th><th class="text-end">P. unit.</th><th class="text-end">Subtotal</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of pedido.items">
+          <td><img [src]="i.imagen" [alt]="i.nombre" class="miniatura rounded"></td>
+          <td>{{ i.nombre }}</td>
+          <td class="text-center">{{ i.cantidad }}</td>
+          <td class="text-end">{{ i.precioUnitario | currency: 'PEN' : 'S/ ' }}</td>
+          <td class="text-end">{{ i.subtotal | currency: 'PEN' : 'S/ ' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-end gap-4 small">
+    <span>Subtotal: {{ pedido.subtotal | currency: 'PEN' : 'S/ ' }}</span>
+    <span>IGV (18%): {{ pedido.igv | currency: 'PEN' : 'S/ ' }}</span>
+    <strong>Total: {{ pedido.total | currency: 'PEN' : 'S/ ' }}</strong>
+  </div>
+</div>

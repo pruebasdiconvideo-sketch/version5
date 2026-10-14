@@ -1,0 +1,134 @@
+<ng-container *ngIf="auth.sesion() as s">
+  <div class="p-4 rounded-4 bg-cafe text-white mb-4">
+    <h2 class="mb-1">¡Bienvenido, {{ s.nombre }}!</h2>
+    <small>
+      {{ s.email | lowercase }} · {{ auth.esAdmin() ? 'Administrador' : 'Cliente' }} · Sesión iniciada {{ s.fechaIngreso
+      | date: 'medium' }}
+    </small>
+  </div>
+</ng-container>
+
+<div class="text-center py-5" *ngIf="cargando">
+  <div class="spinner-border text-cafe"></div>
+</div>
+
+<div class="row g-3 mb-4" *ngIf="!cargando">
+  <div class="col-6 col-lg" *ngFor="let k of kpis">
+    <div class="card shadow-sm text-center p-3 h-100">
+      <i class="bi fs-3 text-cafe" [class]="k.icono"></i>
+      <div class="fs-4 fw-bold">{{ k.valor }}</div>
+      <small class="text-muted">{{ k.titulo }}</small>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!cargando && auth.esAdmin()">
+  <ul class="nav nav-pills mb-3">
+    <li class="nav-item">
+      <button class="nav-link" [ngClass]="{ active: vista === 'pedidos' }" (click)="vista = 'pedidos'">
+        Pedidos ({{ pedidos.length }})
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [ngClass]="{ active: vista === 'inventario' }"
+        (click)="vista = 'inventario'">Inventario</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [ngClass]="{ active: vista === 'clientes' }" (click)="vista = 'clientes'">
+        Clientes ({{ clientes.length }})
+      </button>
+    </li>
+  </ul>
+
+  <app-admin-pedidos *ngIf="vista === 'pedidos'" [pedidos]="pedidos" (cambiar)="cambiarEstado($event)" />
+
+  <div *ngIf="vista === 'inventario'" class="table-responsive">
+    <table class="table align-middle tabla-cards">
+      <thead class="table-light">
+        <tr>
+          <th></th>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th class="text-end">Precio</th>
+          <th>Stock</th>
+          <th>Descuento %</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of productos" [ngClass]="{ 'table-danger': p.stock < stockBajo }">
+          <td data-label=""><img [src]="p.imagen" [alt]="p.nombre" class="miniatura rounded"></td>
+          <td data-label="Producto">{{ p.nombre }}</td>
+          <td data-label="Categoría">{{ p.categoria }}</td>
+          <td data-label="Precio" class="text-end">{{ p.precio | currency: 'PEN' : 'S/ ' }}</td>
+          <td data-label="Stock"><input type="number" min="0" class="form-control form-control-sm campo"
+              [(ngModel)]="p.stock" [attr.aria-label]="'Stock de ' + p.nombre"></td>
+          <td data-label="Descuento %"><input type="number" min="0" max="90" class="form-control form-control-sm campo"
+              [(ngModel)]="p.descuento" [attr.aria-label]="'Descuento de ' + p.nombre"></td>
+          <td data-label="" class="text-nowrap">
+            <button class="btn btn-sm btn-cafe" (click)="guardarProducto(p)">Guardar</button>
+            <i class="bi bi-check-circle-fill text-success ms-1" *ngIf="guardadoId === p.id"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="vista === 'clientes'" class="table-responsive">
+    <table class="table table-striped align-middle tabla-cards">
+      <thead class="table-light">
+        <tr>
+          <th>Cliente</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Registro</th>
+          <th class="text-center">Pedidos</th>
+          <th class="text-end">Total comprado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of clientes">
+          <td data-label="Cliente">{{ c.nombre }}</td>
+          <td data-label="Correo">{{ c.email }}</td>
+          <td data-label="Teléfono">{{ c.telefono || '—' }}</td>
+          <td data-label="Registro">{{ c.fechaRegistro | date: 'dd/MM/yyyy' }}</td>
+          <td data-label="Pedidos" class="text-center">{{ pedidosDe(c).length }}</td>
+          <td data-label="Total comprado" class="text-end">{{ totalDe(c) | currency: 'PEN' : 'S/ ' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="text-muted text-center" *ngIf="clientes.length === 0">Aún no hay clientes registrados.</p>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!cargando && auth.esCliente()">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h5 class="mb-0">Mis últimos pedidos</h5>
+    <a routerLink="/mis-pedidos" class="btn btn-sm btn-outline-cafe">Ver todos</a>
+  </div>
+
+  <div class="table-responsive" *ngIf="recientes.length > 0; else sinPedidos">
+    <table class="table align-middle tabla-cards">
+      <thead class="table-light">
+        <tr>
+          <th>N°</th>
+          <th>Fecha</th>
+          <th class="text-end">Total</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of recientes">
+          <td data-label="N°">#{{ p.id }}</td>
+          <td data-label="Fecha">{{ p.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
+          <td data-label="Total" class="text-end">{{ p.total | currency: 'PEN' : 'S/ ' }}</td>
+          <td data-label="Estado"><span class="badge" [ngClass]="clase[p.estado]">{{ etiqueta[p.estado] }}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #sinPedidos>
+    <div class="alert alert-info">Todavía no tienes pedidos. <a routerLink="/tienda" class="alert-link">Haz tu primer
+        pedido</a>.</div>
+  </ng-template>
+</ng-container>
