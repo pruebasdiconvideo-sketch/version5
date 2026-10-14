@@ -1,212 +1,226 @@
-# Café Andino · E-commerce (PC2 JavaScript Avanzado)
+# Café Andino
 
-Tienda online de la cafetería cusqueña **Café Andino**: **Angular 20 (standalone + SSR/prerender) · Bootstrap 5 · JSON Server · TypeScript**.
+## Descripción del proyecto
 
-La aplicación permite explorar productos y ofertas, crear una cuenta, armar un carrito y gestionar pedidos. Los datos de desarrollo se guardan en `db.json`, que JSON Server expone como API REST. La interfaz está construida con componentes Angular, plantillas HTML, estilos CSS y clases de Bootstrap.
+Café Andino es una aplicación web desarrollada con Angular para mostrar productos de una cafetería y permitir a los clientes realizar pedidos en línea. Cuenta con un catálogo de productos, ofertas, carrito de compras, registro de usuarios y un panel para consultar y administrar los pedidos.
 
-## Inicio rápido (2 terminales)
+Para el desarrollo se utiliza JSON Server como API local, que permite trabajar con los datos almacenados en el archivo `db.json`.
+
+## Tecnologías utilizadas
+
+- **Angular:** desarrollo de la interfaz web.
+- **TypeScript:** lógica de la aplicación.
+- **HTML y CSS:** estructura y estilos de las páginas.
+- **Bootstrap:** diseño adaptable a celulares, tabletas y computadoras.
+- **Node.js y npm:** ejecución del entorno de desarrollo e instalación de dependencias.
+- **JSON Server:** API REST para consultar y modificar los datos.
+- **LocalStorage:** almacenamiento local de información de sesión y datos de la aplicación, según la configuración utilizada.
+
+## Requisitos previos
+
+Antes de ejecutar el proyecto, es necesario tener instalado:
+
+- Node.js 20.19 o superior de la versión 20, o una versión compatible de la rama 22.
+- npm, incluido con Node.js.
+- Visual Studio Code u otro editor de código.
+
+Se puede comprobar la instalación desde la terminal:
 
 ```bash
-# 1) Solo la primera vez: instala dependencias
-npm install
-
-# 2) Terminal 1 — API REST (db.json en http://localhost:3000)
-json-server --watch db.json --port 3000
-
-# 3) Terminal 2 — App Angular (http://localhost:4200)
-ng serve
+node -v
+npm -v
 ```
 
-> Si `json-server` o `ng` no están instalados de forma global, antepón `npx`:
-> `npx json-server --watch db.json --port 3000` y `npx ng serve`. Ambos funcionan tras `npm install`.
+## Instalación y ejecución
 
-| Servicio | URL | Comando |
-|---|---|---|
-| Angular (front) | http://localhost:4200 | `ng serve` |
-| JSON Server (API) | http://localhost:3000 | `json-server --watch db.json --port 3000` |
+### 1. Abrir el proyecto
 
-O ejecuta ambos en una sola terminal con: `npm run dev`
+Abre una terminal en la carpeta principal del proyecto, donde se encuentra el archivo `package.json`.
 
-## Roles y funcionalidades
+### 2. Instalar las dependencias
 
-| | Visitante | Cliente | Administrador |
-|---|---|---|---|
-| Ver Home, Productos, Ofertas, Contacto | ✅ | ✅ | ✅ |
-| Crear cuenta (`/registro`) | ✅ | – | – |
-| Comprar en la Tienda (carrito, IGV 18%) | ve el carrito; debe iniciar sesión | ✅ | ❌ (solo gestiona) |
-| **Mis pedidos** (historial, estado, productos comprados) | – | ✅ | – |
-| **Dashboard** | redirige al Home | resumen personal | **panel completo** |
-| Ver **todos** los pedidos y cambiar su estado | – | – | ✅ |
-| Editar stock y descuentos | – | – | ✅ |
-| Ver clientes y sus compras | – | – | ✅ |
+Ejecuta el siguiente comando. Este paso se realiza la primera vez que se configura el proyecto.
 
-- Al confirmar un pedido se **descuenta el stock**; si el admin lo **cancela**, el stock se devuelve.
-- Estados del pedido: Pendiente → En preparación → Entregado (o Cancelado).
+```bash
+npm install
+```
 
-### Usuarios de prueba
+### 3. Iniciar la API
+
+Abre una terminal y ejecuta:
+
+```bash
+npx json-server --watch db.json --port 3000
+```
+
+La API estará disponible en:
+
+`http://localhost:3000`
+
+Es importante dejar esta terminal abierta mientras se utiliza la aplicación.
+
+### 4. Iniciar Angular
+
+Abre una segunda terminal en la carpeta principal del proyecto y ejecuta:
+
+```bash
+npx ng serve
+```
+
+Cuando termine la compilación, ingresa desde el navegador a:
+
+`http://localhost:4200`
+
+También se puede utilizar el comando `npm run dev` para iniciar los servicios juntos, si está configurado en el archivo `package.json`.
+
+## Funcionalidades principales
+
+### Página principal y catálogo
+
+La página principal presenta información de Café Andino y permite navegar por las diferentes secciones del sitio.
+
+Entre las funcionalidades disponibles se encuentran:
+
+- Visualización de productos.
+- Consulta de ofertas y descuentos.
+- Información de la cafetería.
+- Sección de contacto.
+- Diseño adaptable a diferentes tamaños de pantalla.
+
+### Registro e inicio de sesión
+
+Los usuarios pueden crear una cuenta e iniciar sesión para acceder a las opciones disponibles para clientes.
+
+El proyecto utiliza autenticación simulada para las pruebas y almacena información en el navegador. Por ello, no debe considerarse un sistema de autenticación listo para producción.
+
+### Tienda y pedidos
+
+Los clientes pueden agregar productos al carrito, revisar las cantidades y confirmar sus pedidos.
+
+El cálculo de los importes considera el IGV del 18 %. Al confirmar un pedido, se descuenta el stock correspondiente. Si el administrador cancela el pedido, el stock se devuelve.
+
+Los pedidos pueden pasar por los siguientes estados:
+
+- Pendiente.
+- En preparación.
+- Entregado.
+- Cancelado.
+
+### Panel de usuario
+
+El panel cambia según el tipo de usuario que inicia sesión.
+
+El cliente puede consultar su información y revisar sus pedidos anteriores, mientras que el administrador dispone de opciones para gestionar los pedidos, actualizar sus estados, revisar clientes y modificar el stock y los descuentos.
+
+## Usuarios de prueba
+
+Para probar las funcionalidades, se pueden utilizar las siguientes cuentas:
+
 | Rol | Correo | Contraseña |
 |---|---|---|
-| Administrador | `admin@cafeandino.pe` | `admin123` |
-| Cliente | `cliente@cafeandino.pe` | `cliente123` |
-| Cliente | `marco@correo.com` | `marco123` |
+| Administrador | admin@cafeandino.pe | admin123 |
+| Cliente | cliente@cafeandino.pe | cliente123 |
+| Cliente | marco@correo.com | marco123 |
 
-## Ejecutar el proyecto
+Estas credenciales son para el entorno de demostración y no deben utilizarse en una aplicación publicada con información real.
 
-Requisitos: **Node.js 20.19+ o 22** y npm. La primera vez, instala las dependencias:
+## Estructura del proyecto
 
-```bash
-npm install
-```
+La carpeta principal contiene los archivos de configuración, los datos de prueba y el código fuente de la aplicación.
 
-Para iniciar los servicios manualmente, abre dos terminales en la carpeta raíz del proyecto (`cafe-andino`). Instala las dependencias solo la primera vez:
-
-```bash
-npm install
-```
-
-En la primera terminal, inicia la API local:
-
-```bash
-json-server --watch db.json --port 3000
-```
-
-> Si `json-server` no está instalado de forma global, usa `npx json-server --watch db.json --port 3000` (es equivalente y funciona después de `npm install`).
-
-Déjala abierta. En la segunda terminal, inicia Angular:
-
-```bash
-ng serve
-```
-
-> Si `ng` no está instalado de forma global, usa `npx ng serve` (también equivalente tras `npm install`).
-
-Cuando Angular indique que terminó de compilar, abre **http://localhost:4200**. JSON Server sirve los datos de `db.json` en **http://localhost:3000**. El comando de Angular es `ng serve`, no `ng server`.
-
-También puedes iniciar ambos servicios juntos desde una sola terminal con el script incluido:
-
-```bash
-npm run dev
-```
-
-Bootstrap ya está incluido en `angular.json` y sus clases se usan en las plantillas para la cuadrícula responsive, navegación, botones y formularios.
-
-## Comandos opcionales
-
-No son necesarios para iniciar la tienda. Úsalos solo para verificar el proyecto:
-
-```bash
-npm run build  # compilar
-npm test       # pruebas unitarias (requiere Google Chrome)
-```
-
-**Flujo de prueba sugerido**
-1. `Crear cuenta` → se registra un cliente nuevo y entra al Dashboard.
-2. Tienda → agregar productos → *Confirmar pedido* → aparece en **Mis pedidos** con su detalle.
-3. Cerrar sesión → entrar como **admin** → Dashboard → pestaña **Pedidos**: ahí está el pedido del cliente; cambia su estado.
-4. Entrar de nuevo como el cliente: el estado se ve actualizado en *Mis pedidos*.
-
-## Estructura
-
-```
+```text
 cafe-andino/
-├── angular.json              Configuración de Angular; incluye Bootstrap y los recursos
-├── package.json              Dependencias y comandos npm, incluido `npm run dev`
-├── package-lock.json         Versiones instaladas de dependencias
-├── tsconfig*.json             Configuración de TypeScript
-├── db.json                   Datos que consume JSON Server durante el desarrollo
+├── angular.json
+├── package.json
+├── package-lock.json
+├── db.json
 ├── public/
-│   └── images/                Logo, portada, productos e imágenes del sitio
-├── backend/                  API alternativa opcional en Java y Spring Boot
-│   ├── pom.xml                Dependencias y configuración de Maven
-│   └── src/main/java/         Clases Java de la API (no requeridas para `npm run dev`)
+│   └── images/
+├── backend/
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+│           └── java/
 └── src/
-    ├── index.html             Documento HTML de entrada
-    ├── main.ts                Inicio de Angular en el navegador
-    ├── main.server.ts         Entrada de Angular para renderizado en servidor
-    ├── server.ts              Servidor de renderizado SSR
-    ├── styles.css             Estilos globales y ajustes de Bootstrap
-    ├── environments/          URL de API y configuración por entorno
+    ├── index.html
+    ├── main.ts
+    ├── styles.css
+    ├── environments/
     └── app/
-        ├── app.ts, app.html, app.css  Componente raíz de la aplicación
-        ├── app.routes.ts              Rutas y navegación entre páginas
-        ├── navbar/, footer/           Navegación y pie reutilizables
-        ├── hero/, categorias/         Portada y navegación por categorías
-        ├── about/                     Historia y presentación de Café Andino
-        ├── skills/                    Especialidades y capacidades de la cafetería
-        ├── projects/                  Selección destacada del catálogo
-        ├── contact/                   Contacto y reservas
-        ├── testimonios/               Opiniones de clientes
-        ├── producto-card/             Tarjeta reutilizable para productos
-        ├── pedido-detalle/            Presentación del detalle de un pedido
-        ├── home/                      Página principal
-        ├── productos/, ofertas/       Catálogo y productos con descuento
-        ├── tienda/                    Carrito y confirmación de compra
-        ├── login/, registro/          Acceso y creación de cuenta
-        ├── mi-cuenta/                 Datos de la cuenta del cliente
-        ├── mis-pedidos/               Historial de compras del cliente
-        ├── dashboard/                 Panel de cliente o administrador
-        ├── admin-pedidos/             Gestión administrativa de pedidos
-        ├── not-found/                 Página para rutas inexistentes
-        ├── models/                    Tipos y modelos de datos TypeScript
-        ├── services/                  Acceso a API, autenticación, carrito y pedidos
-        └── guards/                    Protección de rutas según la sesión
+        ├── app.ts
+        ├── app.html
+        ├── app.css
+        ├── app.routes.ts
+        ├── navbar/
+        ├── footer/
+        ├── home/
+        ├── productos/
+        ├── ofertas/
+        ├── tienda/
+        ├── login/
+        ├── registro/
+        ├── mi-cuenta/
+        ├── mis-pedidos/
+        ├── dashboard/
+        ├── admin-pedidos/
+        ├── models/
+        ├── services/
+        └── guards/
 ```
 
-    Las rutas `/nosotros` y `/contacto` se mantienen como alias para compatibilidad con enlaces anteriores; las rutas principales son `/about` y `/contact`.
+**Descripción de las carpetas principales:**
 
-Los archivos `.java` pertenecen únicamente al backend alternativo Spring Boot. El funcionamiento normal usa Angular y JSON Server con `npm run dev`; no se necesita ejecutar Maven ni Java.
+- `public/images/`: contiene el logo y las imágenes utilizadas en las páginas.
+- `src/app/`: contiene los componentes que forman la interfaz.
+- `src/app/services/`: contiene los servicios para gestionar las peticiones, la sesión, el carrito y los pedidos.
+- `src/app/guards/`: contiene las protecciones de las rutas.
+- `src/app/models/`: contiene los modelos y tipos de datos.
+- `src/environments/`: contiene la configuración de los entornos.
+- `db.json`: almacena los datos utilizados por JSON Server.
+- `backend/`: contiene una alternativa de API desarrollada con Java y Spring Boot.
 
-## Diseño responsive
-Construido con el grid de Bootstrap (móvil → tablet → escritorio):
-- **Navbar** colapsable con menú hamburguesa; los botones de sesión se apilan en móvil.
-- **Catálogo**: 1 columna en móvil, 2 en tablet, 3–4 en escritorio; categorías como *chips* con scroll horizontal.
-- **Tablas** (pedidos, inventario, clientes): en móvil cada fila se convierte en una **tarjeta** (clase `.tabla-cards`, `styles.css`).
-- **Tienda**: el pedido queda fijo a la derecha en escritorio y en móvil aparece el botón flotante **“Ver pedido”**.
-- Imágenes con `loading="lazy"`, proporción fija (sin saltos de diseño) e imagen de respaldo si alguna falla.
+El backend de Spring Boot es opcional y no es necesario para ejecutar la aplicación con Angular y JSON Server.
 
-## Imágenes
-Todas están en `public/images/` y se referencian desde `db.json` (`"imagen": "images/product-xxx.jpg"`).
+## Diseño adaptable
 
-| Archivo | Uso | Tipo |
-|---|---|---|
-| `product-espresso.jpg`, `hero-cup.jpg` | Producto Espresso y portada | **Fotografía real** (CC0, dominio público) |
-| `product-*.jpg` (11), `about.jpg`, `hero.jpg`, `logo.png` | Resto de productos, sección Nosotros, fondo y logo | Ilustraciones generadas para el proyecto |
-| `placeholder.jpg` | Respaldo si una imagen no carga | — |
+La interfaz utiliza Bootstrap para organizar los elementos y facilitar su visualización en distintos dispositivos.
 
-**Para usar tus propias fotos** (por ejemplo las de la PC1): cópialas en `public/images/` con **el mismo nombre**
-(recomendado 1000×750 px, JPG, menos de 200 KB) o cambia la ruta en `db.json`. No hay que tocar el código.
+El menú de navegación se adapta a pantallas pequeñas, los productos se distribuyen según el espacio disponible y las tablas de pedidos y clientes cuentan con una presentación adecuada para dispositivos móviles.
 
-## Cumplimiento de la rúbrica
+## Pruebas del sistema
 
-| Requisito | Dónde |
-|---|---|
-| Navbar / Footer reutilizables, arquitectura por componentes | `navbar/`, `footer/`, `app.html` |
-| Home, Productos, Ofertas, Tienda, Contacto, Mi Cuenta, Login, Dashboard, 404 | `app.routes.ts` |
-| Redirección al Home si se entra a `/dashboard` sin sesión | `guards/auth.guard.ts` |
-| Login simulado con ngModel, validaciones y LocalStorage; cerrar sesión | `login/`, `services/auth.service.ts` |
-| Interpolación, property/event binding, `[(ngModel)]` | todos los componentes |
-| `*ngFor`, `*ngIf`, `[ngClass]`, `[ngStyle]` | todos los componentes (`[ngStyle]` en `hero`, `producto-card`) |
-| Pipes (`currency`, `date`, `uppercase`, `titlecase`) | tarjetas, pedidos, dashboard |
-| Bootstrap: grid, cards, navbar, formularios, botones, tablas | toda la interfaz (responsive) |
-| `db.json` con nombre, imagen, categoría, precio y stock | `db.json` |
-| Servicios REST en Angular + productos dinámicos | `services/api.service.ts`, `productos/` |
-| Dashboard protegido con bienvenida, datos del usuario y estadísticas | `dashboard/` |
+Para comprobar el funcionamiento general, se recomienda seguir estos pasos:
 
-## Despliegue
+1. Iniciar JSON Server y Angular.
+2. Crear una cuenta de cliente o ingresar con una de las cuentas de prueba.
+3. Ingresar a la tienda y agregar productos al carrito.
+4. Confirmar el pedido y revisar que aparezca en la sección Mis pedidos.
+5. Cerrar sesión e ingresar con la cuenta de administrador.
+6. Buscar el pedido registrado y modificar su estado.
+7. Volver a ingresar con la cuenta del cliente para comprobar el estado actualizado.
 
-`npm run build` → `dist/cafe-andino/browser`. Subir el repo a **Vercel** o **Netlify** (ya traen `vercel.json` / `netlify.toml`).
-
-**Importante:** en un hosting estático no existe JSON Server. En producción la app usa `db.json` como base inicial y guarda
-usuarios, pedidos y cambios de stock en el **LocalStorage de cada navegador** (`environment.prod.ts`, `usarDbEstatica: true`).
-Sirve para la demo, pero el administrador solo verá los pedidos hechos en su mismo navegador. Para pedidos compartidos entre
-dispositivos, publica la API (JSON Server o el backend Spring Boot) en un servicio como Render y pon su URL en
-`environment.prod.ts` con `usarDbEstatica: false`.
-
-- Servidor Node SSR: `npm run build && npm run start:ssr` (para otro dominio define `ALLOWED_HOSTS="midominio.com"`).
-- GitHub Pages: `ng build --base-href /<repo>/` y copiar `index.csr.html` como `404.html`.
-
-## Backend alternativo con Spring Boot (opcional)
+También se puede compilar el proyecto con:
 
 ```bash
-cd backend && mvn spring-boot:run   # puerto 3000, Java 17+; reemplaza a `npm run api`
+npm run build
 ```
+
+Para ejecutar las pruebas unitarias, si están configuradas, se puede utilizar:
+
+```bash
+npm test
+```
+
+## Consideraciones para publicar la aplicación
+
+En el entorno local, Angular se comunica con JSON Server para consultar y modificar los datos.
+
+Si se publica la aplicación como un sitio estático, el funcionamiento dependerá de la configuración del entorno de producción. En la modalidad basada en datos estáticos, algunos cambios se guardan en el LocalStorage del navegador y no se comparten automáticamente con otros usuarios o dispositivos.
+
+Para trabajar con pedidos compartidos entre diferentes clientes, se necesita una API publicada y una base de datos común. El backend alternativo de Spring Boot puede utilizarse como punto de partida para implementar esta parte.
+
+Antes de publicar el sistema, también se deben revisar la autenticación, los permisos de acceso, la validación de los pedidos y el control de stock en el servidor.
+
+## Autoría
+
+Proyecto académico de desarrollo web para la cafetería Café Andino.
